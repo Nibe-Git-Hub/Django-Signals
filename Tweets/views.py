@@ -1,3 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .forms import TweetForm
 
 # Create your views here.
+
+@login_required
+def create_tweet(request):
+    if request.method == 'POST':
+        form = TweetForm(request.POST)
+        if form.is_valid():
+            tweet = form.save(commit=False)
+            tweet.user = request.user
+            tweet.save()
+            return redirect('some_success_url')  # Change to a URL of your choice
+    else:
+        form = TweetForm()
+
+    return render(request, 'Tweet/create_tweet.html', {'form': form})
