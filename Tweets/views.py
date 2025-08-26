@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
 from .forms import TweetForm
 
@@ -12,7 +12,7 @@ def create_tweet(request):
             tweet = form.save(commit=False)
             tweet.user = request.user
             tweet.save()
-            return redirect('some_success_url')  # Change to a URL of your choice
+            return redirect(reverse('create_tweet'))  # Change to a URL of your choice
     else:
         form = TweetForm()
 
