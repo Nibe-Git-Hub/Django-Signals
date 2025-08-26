@@ -16,4 +16,4 @@ def create_tweet(request):
     else:
         form = TweetForm()
 
-    return render(request, 'Tweet/create_tweet.html', {'form': form})
+    return render(request, 'Tweets/create_tweet.html', {'form': form})
